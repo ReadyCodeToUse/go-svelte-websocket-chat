@@ -33,6 +33,8 @@ ws://localshot:8080/username/foo
 ```
 This will open a connection having a username `foo`, a username cannot be used in more than a connection. To make it available to a different client simply interrupt the connection.
 
+The username foreach connection can only be a lowercase alphanumeric string.
+
 #### Leave
 Interrupt the session from the client and the server will handle the disconnection on his own.
 
