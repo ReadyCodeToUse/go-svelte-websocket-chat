@@ -14,5 +14,5 @@ func main() {
 	mux.Handle("/username/", connection.NewConnectionHandler())
 	http.ListenAndServe(":8080", mux)
 
-	log.Panicln("Server closed")
+	log.Panicln("server closed")
 }
