@@ -93,3 +93,11 @@ func (rl *RoomsList) AddRoom(r *Room) bool {
 	rl.list[r.GetName()] = r
 	return true
 }
+
+// Deletes a room from the list, if the room does not exists nothing happens.
+func (rl *RoomsList) DeleteRoom(r *Room) {
+	rl.Lock()
+	defer rl.Unlock()
+
+	delete(rl.list, r.GetName())
+}
