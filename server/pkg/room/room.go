@@ -76,7 +76,7 @@ func (r *Room) SendMessage(msg, sender string, opCode ws.OpCode) error {
 }
 
 // Returns a new empty rooms list
-func NewRoomList() *RoomsList {
+func NewRoomsList() *RoomsList {
 	return &RoomsList{make(map[string]*Room), &sync.RWMutex{}}
 }
 

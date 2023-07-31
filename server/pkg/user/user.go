@@ -56,7 +56,7 @@ func (u *User) Receive(msg []byte, opCode ws.OpCode) error {
 }
 
 // Return a new empty user list
-func NewUserList() *UsersList {
+func NewUsersList() *UsersList {
 	return &UsersList{make(map[string]*User), sync.RWMutex{}}
 }
 
