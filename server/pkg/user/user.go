@@ -1,7 +1,6 @@
 package user
 
 import (
-	"fmt"
 	"net"
 	"sync"
 
@@ -87,14 +86,11 @@ func (ul *UsersList) DeleteUser(u *User) {
 	delete(ul.list, u.GetName())
 }
 
-func (ul *UsersList) GetUser(name string) (*User, error) {
+// Get a user from the list, if the room does not exists returns false as second return value
+func (ul *UsersList) GetUser(name string) (*User, bool) {
 	ul.RLock()
 	defer ul.RUnlock()
 
 	res, ok := ul.list[name]
-	if !ok {
-		return nil, fmt.Errorf("the user named %s does not exists", name)
-	}
-
-	return res, nil
+	return res, ok
 }

@@ -2,7 +2,6 @@ package room
 
 import (
 	"errors"
-	"fmt"
 	"sync"
 
 	"github.com/cedrata/go-svelte-websocket-chat/server/pkg/user"
@@ -103,14 +102,11 @@ func (rl *RoomsList) DeleteRoom(r *Room) {
 	delete(rl.list, r.GetName())
 }
 
-func (rl *RoomsList) GetRoom(name string) (*Room, error) {
+// Get a room from the list, if the room does not exists returns false as second return value
+func (rl *RoomsList) GetRoom(name string) (*Room, bool) {
 	rl.RLock()
 	defer rl.RUnlock()
 
 	res, ok := rl.list[name]
-	if !ok {
-		return nil, fmt.Errorf("the room named %s does not exists", name)
-	}
-
-	return res, nil
+	return res, ok
 }
