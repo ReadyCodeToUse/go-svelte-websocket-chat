@@ -35,7 +35,7 @@
 	<div class="row-span-1 col-span-full h-20 flex items-center">
 		<h1 class="text-lg font-bold">chat applcation</h1>
 	</div>
-	<div class="col-start-1 col-span-2 row-start-2 h-auto bg-purple-300 overflow-auto">
+	<div class="col-start-1 col-span-3 row-start-2 h-auto bg-purple-300 overflow-auto">
 		{#each titles as title}
 			<a class="w-full" href={null} on:click={() => console.log(`${title} has been clicked`)}>
 				<Preview {title} />
