@@ -1,7 +1,17 @@
 <script>
 	import Preview from '$lib/components/preview.svelte';
 
-	const titles = ['preview 1', 'preview 2', 'preview 3', 'preview 4', 'preview 5', 'preview 6', 'preview 7', 'preview 8', 'preview 9'];
+	const titles = [
+		'preview 1',
+		'preview 2',
+		'preview 3',
+		'preview 4',
+		'preview 5',
+		'preview 6',
+		'preview 7',
+		'preview 8',
+		'preview 9'
+	];
 
 	/** @type {string}*/
 	let preview = '';
@@ -21,9 +31,11 @@
 	Here would go a huge form that user doesn't want to lose in case of an accident.
 </div> -->
 
-<h1 class="text-lg font-bold h-10">Chat application</h1>
-<main class="grid grid-cols-10">
-	<div class="col-span-2 h-full bg-purple-300 overflow-auto">
+<main class="grid grid-cols-10 grid-rows-auto content-center h-screen">
+	<div class="row-span-1 col-span-full h-20 flex items-center">
+		<h1 class="text-lg font-bold">chat applcation</h1>
+	</div>
+	<div class="col-start-1 col-span-2 row-start-2 h-auto bg-purple-300 overflow-auto">
 		{#each titles as title}
 			<a class="w-full" href={null} on:click={() => console.log(`${title} has been clicked`)}>
 				<Preview {title} />
