@@ -1,5 +1,6 @@
 <script>
 	import Preview from '$lib/components/preview.svelte';
+	import { useMachine } from '$lib/stateMachine';
 
 	const titles = [
 		'preview 1',
@@ -13,8 +14,39 @@
 		'preview 9'
 	];
 
-	/** @type {string}*/
-	let preview = '';
+	
+
+	/**
+	 *
+	 * @param {string} state
+	 * @param {{id: string}} event
+	 */
+	function chatMachine(state, event) {
+		switch (state) {
+			case 'select':
+				if (event.id === 'CLICK') {
+
+				}
+			default:
+				return state;
+		}
+	}
+
+	/**
+	 * Get the id given a number for the preview item anchor.
+	 * @param {number} i
+	 */
+	function getPreviewItemAnchorId(i) {
+		return `preview-item-anchor-${i}`;
+	}
+
+	/**
+	 * Get the id given a number for the preview item.
+	 * @param {number} i
+	 */
+	function getPreviewItemId(i) {
+		return `preview-item-${i}`;
+	}
 </script>
 
 <!-- <script>
@@ -36,9 +68,18 @@
 		<h1 class="text-lg font-bold">chat applcation</h1>
 	</div>
 	<div class="col-start-1 col-span-3 row-start-2 h-auto bg-purple-300 overflow-auto">
-		{#each titles as title}
-			<a class="w-full" href={null} on:click={() => console.log(`${title} has been clicked`)}>
-				<Preview {title} />
+		{#each titles as title, i}
+			<a
+				id={getPreviewItemAnchorId(i)}
+				class="w-full"
+				href={null}
+				on:click={() => {
+					console.log(
+						document.getElementById(getPreviewItemAnchorId(i))?.id ?? 'the chat list does not exists'
+					);
+				}}
+			>
+				<Preview id={getPreviewItemId(i)} title={`${i}: ${title}`} />
 			</a>
 		{/each}
 	</div>
