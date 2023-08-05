@@ -1,6 +1,6 @@
 <script>
 	import Preview from '$lib/components/preview.svelte';
-	import { useMachine } from '$lib/stateMachine';
+	import { onMount } from 'svelte';
 
 	const titles = [
 		'preview 1',
@@ -13,21 +13,19 @@
 		'preview 8',
 		'preview 9'
 	];
+
+	/** @type {Preview[]} */
+	let previews = [];
+
+	/** @type {{active: number|undefined}}*/
+	let state = {
+		active: undefined
+	}
 	
 	/**
-	 * state: {active: number|undefined}
-	 * event: {action: string, id: number|undefined}
+	 * @param {{action: string, id?: number}} event
 	 */
-
-
-	/**
-	 * Usually there should be a switch case over the current state to 
-	 * handle the event. In this implementation of this state machine 
-	 * switch is over the event to adapt the state to it.
-	 * @param {{active: number|undefined}} state
-	 * @param {{action: string, id: number|undefined}} event
-	 */
-	function chatMachine(state, event) {
+	function chnageSelected(event) {
 		switch (event.action) {
 			case 'activate':
 				if (state.active !== undefined) {
@@ -45,19 +43,34 @@
 					state.active = undefined
 				}
 				break
-
-			default:
-				return state;
 		}
 	}
 
-	const { state, send } = useMachine(chatMachine, {active: undefined})
-
-	state.subscribe((v) => console.log(v))
-
-	/** @type {Preview[]} */
-	let previews = [];
+	onMount(() => {
+		document.body.addEventListener('keyup', (e) => {
+			chnageSelected({action: 'deactivate'})
+		})
+	})
 </script>
+
+<main class="grid grid-cols-10 grid-rows-auto content-start h-screen">
+	<div class="row-span-1 col-span-full h-20 flex items-center">
+		<h1 class="text-lg font-bold">chat applcation</h1>
+	</div>
+	<div class="col-start-1 col-span-3 row-start-2 h-auto bg-purple-300 overflow-auto">
+		{#each titles as title, i}
+			<a
+				class="w-full"
+				href={null}
+				on:click={() => {
+					chnageSelected({action: 'activate', id: i})
+				}}
+			>
+				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
+			</a>
+		{/each}
+	</div>
+</main>
 
 <!-- <script>
     import {preventTabClose} from "$lib/prevetClose";
@@ -72,26 +85,6 @@
 <div use:preventTabClose={shouldWork}>
 	Here would go a huge form that user doesn't want to lose in case of an accident.
 </div> -->
-
-<main class="grid grid-cols-10 grid-rows-auto content-start h-screen">
-	<div class="row-span-1 col-span-full h-20 flex items-center">
-		<h1 class="text-lg font-bold">chat applcation</h1>
-	</div>
-	<div class="col-start-1 col-span-3 row-start-2 h-auto bg-purple-300 overflow-auto">
-		{#each titles as title, i}
-			<a
-				class="w-full"
-				href={null}
-				on:click={() => {
-					// previews[i].toggleSelection();
-					send({action: 'activate', id: i})
-				}}
-			>
-				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
-			</a>
-		{/each}
-	</div>
-</main>
 
 <!-- {#if connection}
 	connected
