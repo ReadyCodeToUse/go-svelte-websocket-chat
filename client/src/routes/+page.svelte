@@ -13,40 +13,50 @@
 		'preview 8',
 		'preview 9'
 	];
-
 	
+	/**
+	 * state: {active: number|undefined}
+	 * event: {action: string, id: number|undefined}
+	 */
+
 
 	/**
-	 *
-	 * @param {string} state
-	 * @param {{id: string}} event
+	 * Usually there should be a switch case over the current state to 
+	 * handle the event. In this implementation of this state machine 
+	 * switch is over the event to adapt the state to it.
+	 * @param {{active: number|undefined}} state
+	 * @param {{action: string, id: number|undefined}} event
 	 */
 	function chatMachine(state, event) {
-		switch (state) {
-			case 'select':
-				if (event.id === 'CLICK') {
-
+		switch (event.action) {
+			case 'activate':
+				if (state.active !== undefined) {
+					previews[state.active].toggleSelection()
 				}
+				if (event.id !== undefined) {
+					previews[event.id].toggleSelection()
+					state.active = event.id
+				}
+				break
+
+			case 'deactivate':
+				if (state.active !== undefined) {
+					previews[state.active].toggleSelection()
+					state.active = undefined
+				}
+				break
+
 			default:
 				return state;
 		}
 	}
 
-	/**
-	 * Get the id given a number for the preview item anchor.
-	 * @param {number} i
-	 */
-	function getPreviewItemAnchorId(i) {
-		return `preview-item-anchor-${i}`;
-	}
+	const { state, send } = useMachine(chatMachine, {active: undefined})
 
-	/**
-	 * Get the id given a number for the preview item.
-	 * @param {number} i
-	 */
-	function getPreviewItemId(i) {
-		return `preview-item-${i}`;
-	}
+	state.subscribe((v) => console.log(v))
+
+	/** @type {Preview[]} */
+	let previews = [];
 </script>
 
 <!-- <script>
@@ -70,16 +80,14 @@
 	<div class="col-start-1 col-span-3 row-start-2 h-auto bg-purple-300 overflow-auto">
 		{#each titles as title, i}
 			<a
-				id={getPreviewItemAnchorId(i)}
 				class="w-full"
 				href={null}
 				on:click={() => {
-					console.log(
-						document.getElementById(getPreviewItemAnchorId(i))?.id ?? 'the chat list does not exists'
-					);
+					// previews[i].toggleSelection();
+					send({action: 'activate', id: i})
 				}}
 			>
-				<Preview id={getPreviewItemId(i)} title={`${i}: ${title}`} />
+				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
 			</a>
 		{/each}
 	</div>

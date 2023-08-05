@@ -1,8 +1,5 @@
 <script>
 	/** @type {string} */
-	export let id;
-
-	/** @type {string} */
 	export let title;
 
 	/** @type {boolean} */
@@ -15,10 +12,9 @@
 </script>
 
 <div
-	{id}
 	class="w-full h-20 p-8 {selected === true
 		? 'bg-neutral-content text-neutral'
-		: 'bg-neutral'} hover:bg-neutral-focus selection:bg-neutral-content divide-solid"
+		: 'bg-neutral hover:bg-neutral-focus'}  selection:bg-neutral-content divide-solid"
 >
 	{title}
 </div>
