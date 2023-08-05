@@ -1,5 +1,6 @@
 <script>
-	import Preview from '$lib/components/preview.svelte';
+	import Conversation from '$lib/components/conversation.svelte';
+import Preview from '$lib/components/preview.svelte';
 	import { onMount } from 'svelte';
 
 	const titles = [
@@ -69,6 +70,14 @@
 				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
 			</a>
 		{/each}
+	</div>
+	<div class="col-start-4 col-span-full row-start-2">
+		<Conversation sender={true}/>
+		<Conversation sender={true}/>
+		<Conversation sender={false}/>
+		<Conversation sender={false}/>
+		<Conversation sender={true}/>
+		<Conversation sender={false}/>
 	</div>
 </main>
 
