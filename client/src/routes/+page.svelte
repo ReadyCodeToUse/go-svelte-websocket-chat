@@ -63,7 +63,7 @@
 	Here would go a huge form that user doesn't want to lose in case of an accident.
 </div> -->
 
-<main class="grid grid-cols-10 grid-rows-auto content-center h-screen">
+<main class="grid grid-cols-10 grid-rows-auto content-start h-screen">
 	<div class="row-span-1 col-span-full h-20 flex items-center">
 		<h1 class="text-lg font-bold">chat applcation</h1>
 	</div>
