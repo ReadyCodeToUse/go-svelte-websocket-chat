@@ -1,3 +1,6 @@
+<script context="module">
+	
+</script>
 <script>
     /** @type {boolean} */
     export let sender

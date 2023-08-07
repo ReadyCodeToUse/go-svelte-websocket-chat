@@ -1,6 +1,5 @@
 <script>
 	import Chatbox from '$lib/components/chatbox.svelte';
-	import Message from '$lib/components/message.svelte';
 	import Preview from '$lib/components/preview.svelte';
 	import Room from '$lib/components/room.svelte';
 	import { onMount } from 'svelte';
@@ -57,10 +56,13 @@
 </script>
 
 <main class="grid grid-cols-10 grid-rows-auto gap-1 content-start h-screen max-h-screen">
-	<div class="row-span-1 col-span-full h-20 flex items-center">
+	<div class="row-span-1 col-start-1 col-end-4 h-20 flex items-center">
 		<h1 class="text-lg font-bold">chat applcation</h1>
 	</div>
-	<div class="col-start-1 col-span-3 row-start-2 row-span-2 h-auto overflow-auto">
+	<div class="row-span-1 col-start-4 col-span-full h-20 flex items-center">
+		<h1 class="text-lg font-bold">Selected preview name</h1>
+	</div>
+	<div class="col-start-1 col-span-3 row-start-2 row-span-3 h-auto overflow-auto">
 		{#each titles as title, i}
 			<a
 				class="w-full"
@@ -73,7 +75,7 @@
 			</a>
 		{/each}
 	</div>
-	<div class="col-start-4 col-span-full row-start-2 h-auto overflow-auto">
+	<div class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto">
 
 		<!-- <Message sender={true}/>
 		<Message sender={true}/>
@@ -82,20 +84,11 @@
 		<Message sender={true}/>
 		<Message sender={false}/> -->
 
-		<!-- <Room /> -->
-			<Message sender={true} />
-			<Message sender={true} />
-			<Message sender={false} />
-			<Message sender={true} />
-			<Message sender={true} />
-			<Message sender={false} />
-			<Message sender={false} />
-			<Message sender={false} />
-			<Message sender={true} />
+		<Room />
 		<!-- <div class="sticky bottom-0">
 		</div> -->
 	</div>
-	<div class="col-start-4 col-span-full row-start-3 h-auto overflow-auto">
+	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto">
 		<Chatbox/>
 	</div>
 </main>

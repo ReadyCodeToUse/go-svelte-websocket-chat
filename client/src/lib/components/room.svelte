@@ -1,15 +1,20 @@
 <script>
 	import Message from './message.svelte';
+
+    /** @type {{sender:boolean}[]} */
+	export let messages = [
+        { sender: true },
+        { sender: true },
+        { sender: false },
+        { sender: true },
+        { sender: false },
+        { sender: false },
+        { sender: true },
+        { sender: true },
+        { sender: false },
+    ];
 </script>
 
-<!-- <div class="flex flex-col overflow-y-auto">
-	<Message sender={true} />
-	<Message sender={true} />
-	<Message sender={false} />
-	<Message sender={true} />
-	<Message sender={true} />
-	<Message sender={false} />
-	<Message sender={false} />
-	<Message sender={false} />
-	<Message sender={true} />
-</div> -->
+{#each messages as message}
+    <Message sender={message.sender} />
+{/each}
