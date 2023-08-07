@@ -76,20 +76,10 @@
 		{/each}
 	</div>
 	<div class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto">
-
-		<!-- <Message sender={true}/>
-		<Message sender={true}/>
-		<Message sender={false}/>
-		<Message sender={false}/>
-		<Message sender={true}/>
-		<Message sender={false}/> -->
-
 		<Room />
-		<!-- <div class="sticky bottom-0">
-		</div> -->
 	</div>
-	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto">
-		<Chatbox/>
+	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
+		<Chatbox />
 	</div>
 </main>
 

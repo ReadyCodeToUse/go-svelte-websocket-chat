@@ -1,7 +1,7 @@
 <script>
 	import Message from './message.svelte';
 
-    /** @type {{sender:boolean}[]} */
+    /** @type {import('$lib/components/message').Message[]} */
 	export let messages = [
         { sender: true },
         { sender: true },
