@@ -1,6 +1,7 @@
 <script>
-	import Conversation from '$lib/components/conversation.svelte';
-import Preview from '$lib/components/preview.svelte';
+	import Message from '$lib/components/message.svelte';
+	import Preview from '$lib/components/preview.svelte';
+	import Room from '$lib/components/room.svelte';
 	import { onMount } from 'svelte';
 
 	const titles = [
@@ -72,12 +73,13 @@ import Preview from '$lib/components/preview.svelte';
 		{/each}
 	</div>
 	<div class="col-start-4 col-span-full row-start-2">
-		<Conversation sender={true}/>
-		<Conversation sender={true}/>
-		<Conversation sender={false}/>
-		<Conversation sender={false}/>
-		<Conversation sender={true}/>
-		<Conversation sender={false}/>
+		<!-- <Message sender={true}/>
+		<Message sender={true}/>
+		<Message sender={false}/>
+		<Message sender={false}/>
+		<Message sender={true}/>
+		<Message sender={false}/> -->
+		<Room />
 	</div>
 </main>
 
