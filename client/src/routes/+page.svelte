@@ -19,6 +19,9 @@
 	/** @type {Preview[]} */
 	let previews = [];
 
+	/** @type {Room}*/
+	let room;
+
 	/** @type {{active: number|undefined}}*/
 	let state = {
 		active: undefined
@@ -75,11 +78,11 @@
 			</a>
 		{/each}
 	</div>
-	<div class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto">
-		<Room />
+	<div class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse">
+		<Room bind:this={room}/>
 	</div>
 	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
-		<Chatbox />
+		<Chatbox on:message={(e) => {room.reciveMessage(e.detail)}}/>
 	</div>
 </main>
 
