@@ -78,11 +78,17 @@
 			</a>
 		{/each}
 	</div>
-	<div class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse">
-		<Room bind:this={room}/>
+	<div
+		class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse"
+	>
+		<Room bind:this={room} />
 	</div>
 	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
-		<Chatbox on:message={(e) => {room.reciveMessage(e.detail)}}/>
+		<Chatbox
+			on:message={(e) => {
+				room.reciveMessage(e.detail);
+			}}
+		/>
 	</div>
 </main>
 
