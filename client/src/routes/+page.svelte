@@ -58,14 +58,42 @@
 	});
 </script>
 
-<main class="grid grid-cols-10 grid-rows-auto gap-1 content-start h-screen max-h-screen">
-	<div class="row-span-1 col-start-1 col-end-4 h-20 flex items-center">
+<main class="container mx-auto grid grid-cols-10 gap-1 h-screen">
+	<!-- <div class="row-span-1 col-start-1 col-end-4 h-20 flex items-center">
 		<h1 class="text-lg font-bold">chat applcation</h1>
 	</div>
 	<div class="row-span-1 col-start-4 col-span-full h-20 flex items-center">
 		<h1 class="text-lg font-bold">Selected preview name</h1>
 	</div>
-	<div class="col-start-1 col-span-3 row-start-2 row-span-3 h-auto overflow-auto">
+	<div class="col-start-1 col-span-3 row-start-2 row-end-7 h-full w-full overflow-auto flex flex-col">
+		{#each titles as title, i}
+			<a
+				class="w-full"
+				href={null}
+				on:click={() => {
+					chnageSelected({ action: 'activate', id: i });
+				}}
+			>
+				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
+			</a>
+		{/each}
+</div>
+	<div
+		class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse"
+	>
+		<Room bind:this={room} />
+	</div>
+	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
+		<Chatbox
+			on:message={(e) => {
+				room.reciveMessage(e.detail);
+			}}
+		/>
+	</div> -->
+	<div class="col-span-3 row-span-5 overflow-auto bg-">
+		<div class="sticky top-0 bg-inherit h-20 flex items-center bg-secondary">
+			<h1 class="text-lg font-bold">chat applcation</h1>
+		</div>
 		{#each titles as title, i}
 			<a
 				class="w-full"
@@ -78,12 +106,9 @@
 			</a>
 		{/each}
 	</div>
-	<div
-		class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse"
-	>
+
+	<div class="col-span-7 row-span-5 flex flex-col justify-end">
 		<Room bind:this={room} />
-	</div>
-	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
 		<Chatbox
 			on:message={(e) => {
 				room.reciveMessage(e.detail);
