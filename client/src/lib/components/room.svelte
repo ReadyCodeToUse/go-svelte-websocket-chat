@@ -2,17 +2,7 @@
 	import Message from './message.svelte';
 
 	/** @type {import('$lib/components/message').Message[]} */
-	export let messages = [
-		{ sender: true, content: ""},
-		{ sender: true, content: ""},
-		{ sender: false, content: ""},
-		{ sender: true, content: ""},
-		{ sender: false, content: ""},
-		{ sender: false, content: ""},
-		{ sender: true, content: ""},
-		{ sender: true, content: ""},
-		{ sender: false, content: ""}
-	];
+	export let messages = [];
 
 	/**
 	 * Append a new message to the current room.

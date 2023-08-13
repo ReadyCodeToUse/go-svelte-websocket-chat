@@ -3,18 +3,10 @@
 	import Preview from '$lib/components/preview.svelte';
 	import Room from '$lib/components/room.svelte';
 	import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
 
-	const titles = [
-		'preview 1',
-		'preview 2',
-		'preview 3',
-		'preview 4',
-		'preview 5',
-		'preview 6',
-		'preview 7',
-		'preview 8',
-		'preview 9'
-	];
+	let rooms = writable(new Map())
+	$: titles = Array.from($rooms.keys())
 
 	/** @type {Preview[]} */
 	let previews = [];
@@ -26,6 +18,10 @@
 	let state = {
 		active: undefined
 	};
+
+	function addRoom() {
+
+	}
 
 	/**
 	 * @param {{action: string, id?: number}} event
@@ -59,37 +55,6 @@
 </script>
 
 <main class="container mx-auto grid grid-cols-10 gap-1 h-screen">
-	<!-- <div class="row-span-1 col-start-1 col-end-4 h-20 flex items-center">
-		<h1 class="text-lg font-bold">chat applcation</h1>
-	</div>
-	<div class="row-span-1 col-start-4 col-span-full h-20 flex items-center">
-		<h1 class="text-lg font-bold">Selected preview name</h1>
-	</div>
-	<div class="col-start-1 col-span-3 row-start-2 row-end-7 h-full w-full overflow-auto flex flex-col">
-		{#each titles as title, i}
-			<a
-				class="w-full"
-				href={null}
-				on:click={() => {
-					chnageSelected({ action: 'activate', id: i });
-				}}
-			>
-				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
-			</a>
-		{/each}
-</div>
-	<div
-		class="col-start-4 col-span-full row-start-2 row-span-2 h-auto overflow-auto flex flex-col-reverse"
-	>
-		<Room bind:this={room} />
-	</div>
-	<div class="col-start-4 col-span-full row-start-4 row-span-1 h-auto overflow-auto p-2">
-		<Chatbox
-			on:message={(e) => {
-				room.reciveMessage(e.detail);
-			}}
-		/>
-	</div> -->
 	<div class="col-span-3 row-span-5 overflow-auto bg-">
 		<div class="sticky top-0 bg-inherit h-20 flex items-center bg-secondary">
 			<h1 class="text-lg font-bold">chat applcation</h1>
@@ -107,13 +72,17 @@
 		{/each}
 	</div>
 
-	<div class="col-span-7 row-span-5 flex flex-col justify-end">
-		<Room bind:this={room} />
-		<Chatbox
-			on:message={(e) => {
-				room.reciveMessage(e.detail);
-			}}
-		/>
+	<div class="col-span-7 row-span-5 flex flex-col justify-end h-screen">
+		<div class="overflow-auto flex flex-col-reverse">
+			<Room bind:this={room} />
+		</div>
+		<div>
+			<Chatbox
+				on:message={(e) => {
+					room.reciveMessage(e.detail);
+				}}
+			/>
+		</div>
 	</div>
 </main>
 
