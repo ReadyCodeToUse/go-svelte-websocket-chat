@@ -7,8 +7,13 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	let rooms = writable(new Map());
-	$: titles = Array.from($rooms.keys());
+	/** @type {import('svelte/store').Writable< {room: string, messages: import('$lib/components/message').Message[]}[]>} */
+	let rooms = writable([
+		{
+			room: 'welcome',
+			messages: [{ sender: false, content: 'Welcome to this message client', name: 'app' }]
+		}
+	]);
 
 	/** @type {Preview[]} */
 	let previews = [];
@@ -48,9 +53,31 @@
 	const modal = useMachine(modalMachine, false);
 	$: modalSate = modal.state;
 
+	/**
+	 * Create a new room if the name doesn't exists yet.
+	 * @param {string} name
+	 */
+	function createRoom(name) {
+		let filtered = $rooms.filter((obj) => obj.room === name);
+
+		if (filtered.length > 0) return;
+
+		/** @type {{room: string, messages: import('$lib/components/message').Message[]}}*/
+		let messages = { room: name, messages: [{ content: 'Room created', sender: true }] };
+		$rooms = [messages, ...$rooms];
+	}
+
 	onMount(() => {
-		document.body.addEventListener('keyup', () => {
-			chnageSelected({ action: 'deactivate' });
+		document.body.addEventListener('keyup', (e) => {
+			switch (e.key) {
+				case 'Escape':
+					if ($modalSate === true) $modalSate = false;
+					else chnageSelected({ action: 'deactivate' });
+					break;
+
+				default:
+					break;
+			}
 		});
 	});
 </script>
@@ -69,7 +96,7 @@
 				}}>+</button
 			>
 		</div>
-		{#each titles as title, i}
+		{#each $rooms as room, i}
 			<a
 				class="w-full"
 				href={null}
@@ -77,7 +104,7 @@
 					chnageSelected({ action: 'activate', id: i });
 				}}
 			>
-				<Preview title={`${i}: ${title}`} bind:this={previews[i]} />
+				<Preview title={`${room.room}`} bind:this={previews[i]} />
 			</a>
 		{/each}
 	</div>
@@ -97,7 +124,7 @@
 
 	<Modal bind:isOpenModal={$modalSate} on:closeModal={(e) => modal.send(e.detail.open)}>
 		<h3 class="text-2xl">New room name</h3>
-		<Chatbox on:message={(e) => console.log(e.detail)} />
+		<Chatbox on:message={(e) => {createRoom(e.detail.content); modal.send(false)}} />
 	</Modal>
 </div>
 

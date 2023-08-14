@@ -1,1 +1,1 @@
-export type Message = { sender: boolean, content: string}
+export type Message = { sender: boolean, name?: string, content: string}
