@@ -1,12 +1,13 @@
 <script>
 	import Chatbox from '$lib/components/chatbox.svelte';
+	import Modal from '$lib/components/modal.svelte';
 	import Preview from '$lib/components/preview.svelte';
 	import Room from '$lib/components/room.svelte';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	let rooms = writable(new Map())
-	$: titles = Array.from($rooms.keys())
+	let rooms = writable(new Map());
+	$: titles = Array.from($rooms.keys());
 
 	/** @type {Preview[]} */
 	let previews = [];
@@ -19,9 +20,8 @@
 		active: undefined
 	};
 
-	function addRoom() {
-
-	}
+	/** @type {boolean} */
+	let isOpenModal = false;
 
 	/**
 	 * @param {{action: string, id?: number}} event
@@ -56,8 +56,17 @@
 
 <main class="container mx-auto grid grid-cols-10 gap-1 h-screen">
 	<div class="col-span-3 row-span-5 overflow-auto bg-">
-		<div class="sticky top-0 bg-inherit h-20 flex items-center bg-secondary">
+		<div
+			class="sticky top-0 bg-inherit h-20 flex flex-row justify-between items-center bg-neutral-focus px-8"
+		>
 			<h1 class="text-lg font-bold">chat applcation</h1>
+			<button
+				class="text-xl bg-accent btn"
+				title="Create a new room"
+				on:click={() => {
+					isOpenModal = true;
+				}}>+</button
+			>
 		</div>
 		{#each titles as title, i}
 			<a
@@ -84,6 +93,11 @@
 			/>
 		</div>
 	</div>
+
+	<Modal bind:isOpenModal>
+		<h3 class="text-2xl">New room name</h3>
+		<Chatbox on:message={(e) => console.log(e.detail)}/>
+	</Modal>
 </main>
 
 <!-- <script>
