@@ -20,7 +20,10 @@
 		active: undefined
 	};
 
-	/** @type {boolean} */
+	/**
+	 * Change in the future in order to use a state machine.
+	 *  @type {boolean}
+	 */
 	let isOpenModal = false;
 
 	/**
@@ -54,7 +57,7 @@
 	});
 </script>
 
-<main class="container mx-auto grid grid-cols-10 gap-1 h-auto max-h-screen">
+<div class="container mx-auto grid grid-cols-10 gap-1 h-screen">
 	<div class="col-span-3 row-span-5 overflow-auto py-8">
 		<div
 			class="sticky top-0 bg-inherit h-20 flex flex-row justify-between items-center bg-neutral-focus px-8"
@@ -96,9 +99,9 @@
 
 	<Modal bind:isOpenModal>
 		<h3 class="text-2xl">New room name</h3>
-		<Chatbox on:message={(e) => console.log(e.detail)}/>
+		<Chatbox on:message={(e) => console.log(e.detail)} />
 	</Modal>
-</main>
+</div>
 
 <!-- <script>
     import {preventTabClose} from "$lib/prevetClose";
