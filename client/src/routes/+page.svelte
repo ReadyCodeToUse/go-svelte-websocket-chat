@@ -1,6 +1,7 @@
 <script>
+	import { useMachine } from '$lib';
 	import Chatbox from '$lib/components/chatbox.svelte';
-	import Modal from '$lib/components/modal.svelte';
+	import Modal, { modalMachine } from '$lib/components/modal.svelte';
 	import Preview from '$lib/components/preview.svelte';
 	import Room from '$lib/components/room.svelte';
 	import { onMount } from 'svelte';
@@ -16,15 +17,9 @@
 	let room;
 
 	/** @type {{active: number|undefined}}*/
-	let state = {
+	let selectedPreview = {
 		active: undefined
 	};
-
-	/**
-	 * Change in the future in order to use a state machine.
-	 *  @type {boolean}
-	 */
-	let isOpenModal = false;
 
 	/**
 	 * @param {{action: string, id?: number}} event
@@ -32,23 +27,26 @@
 	function chnageSelected(event) {
 		switch (event.action) {
 			case 'activate':
-				if (state.active !== undefined) {
-					previews[state.active].toggleSelection();
+				if (selectedPreview.active !== undefined) {
+					previews[selectedPreview.active].toggleSelection();
 				}
 				if (event.id !== undefined) {
 					previews[event.id].toggleSelection();
-					state.active = event.id;
+					selectedPreview.active = event.id;
 				}
 				break;
 
 			case 'deactivate':
-				if (state.active !== undefined) {
-					previews[state.active].toggleSelection();
-					state.active = undefined;
+				if (selectedPreview.active !== undefined) {
+					previews[selectedPreview.active].toggleSelection();
+					selectedPreview.active = undefined;
 				}
 				break;
 		}
 	}
+
+	const modal = useMachine(modalMachine, false);
+	$: modalSate = modal.state;
 
 	onMount(() => {
 		document.body.addEventListener('keyup', () => {
@@ -67,7 +65,7 @@
 				class="text-xl bg-accent btn"
 				title="Create a new room"
 				on:click={() => {
-					isOpenModal = true;
+					modal.send(true);
 				}}>+</button
 			>
 		</div>
@@ -97,7 +95,7 @@
 		</div>
 	</div>
 
-	<Modal bind:isOpenModal>
+	<Modal bind:isOpenModal={$modalSate} on:closeModal={(e) => modal.send(e.detail.open)}>
 		<h3 class="text-2xl">New room name</h3>
 		<Chatbox on:message={(e) => console.log(e.detail)} />
 	</Modal>
