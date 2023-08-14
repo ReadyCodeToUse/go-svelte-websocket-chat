@@ -54,8 +54,8 @@
 	});
 </script>
 
-<main class="container mx-auto grid grid-cols-10 gap-1 h-screen">
-	<div class="col-span-3 row-span-5 overflow-auto bg-">
+<main class="container mx-auto grid grid-cols-10 gap-1 h-auto max-h-screen">
+	<div class="col-span-3 row-span-5 overflow-auto py-8">
 		<div
 			class="sticky top-0 bg-inherit h-20 flex flex-row justify-between items-center bg-neutral-focus px-8"
 		>
@@ -81,7 +81,7 @@
 		{/each}
 	</div>
 
-	<div class="col-span-7 row-span-5 flex flex-col justify-end h-screen">
+	<div class="col-span-7 row-span-5 flex flex-col justify-end h-screen py-8">
 		<div class="overflow-auto flex flex-col-reverse">
 			<Room bind:this={room} />
 		</div>
