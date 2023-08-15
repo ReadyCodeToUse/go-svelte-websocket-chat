@@ -85,8 +85,8 @@
 		if (filtered.length > 0) return;
 
 		/** @type {{room: string, messages: import('$lib/components/message').Message[]}}*/
-		let messages = { room: name, messages: [{ content: 'Room created', sender: true }] };
-		$rooms = [messages, ...$rooms];
+		let newRoom = { room: name, messages: [{ content: 'Room created', sender: true }] };
+		$rooms = [newRoom, ...$rooms];
 	}
 
 	onMount(() => {
@@ -148,6 +148,7 @@
 		<h3 class="text-2xl">New room name</h3>
 		<Chatbox
 			on:message={(e) => {
+				chnageSelected({ action: 'deactivate' });
 				createRoom(e.detail.content);
 				modal.send(false);
 			}}
