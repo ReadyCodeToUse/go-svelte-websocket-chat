@@ -45,7 +45,7 @@
 						let oldTitle = previews[selectedPreview.active].getTitle();
 						$rooms.map((obj) => {
 							if (obj.room === oldTitle) {
-								obj.messages = [...oldMessages];
+								obj.messages = oldMessages;
 							}
 						});
 					}
@@ -58,6 +58,14 @@
 			case 'deactivate':
 				if (selectedPreview.active !== undefined) {
 					previews[selectedPreview.active].toggleSelection();
+					let oldTitle = previews[selectedPreview.active].getTitle();
+					let oldMessages = room.updateMessages([]);
+					$rooms.map((obj) => {
+						if (obj.room === oldTitle) {
+							obj.messages = oldMessages;
+						}
+					});
+
 					selectedPreview.active = undefined;
 				}
 				break;
