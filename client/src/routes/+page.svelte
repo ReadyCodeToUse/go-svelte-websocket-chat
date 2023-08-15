@@ -37,8 +37,22 @@
 				}
 				if (event.id !== undefined) {
 					previews[event.id].toggleSelection();
+
+					let previewName = previews[event.id].getTitle();
+					let filtered = $rooms.filter((obj) => obj.room === previewName);
+					let oldMessages = room.updateMessages(filtered[0].messages);
+					if (selectedPreview.active !== undefined) {
+						let oldTitle = previews[selectedPreview.active].getTitle();
+						$rooms.map((obj) => {
+							if (obj.room === oldTitle) {
+								obj.messages = [...oldMessages];
+							}
+						});
+					}
+
 					selectedPreview.active = event.id;
 				}
+
 				break;
 
 			case 'deactivate':
@@ -124,7 +138,12 @@
 
 	<Modal bind:isOpenModal={$modalSate} on:closeModal={(e) => modal.send(e.detail.open)}>
 		<h3 class="text-2xl">New room name</h3>
-		<Chatbox on:message={(e) => {createRoom(e.detail.content); modal.send(false)}} />
+		<Chatbox
+			on:message={(e) => {
+				createRoom(e.detail.content);
+				modal.send(false);
+			}}
+		/>
 	</Modal>
 </div>
 

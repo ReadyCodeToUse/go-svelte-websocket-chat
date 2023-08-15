@@ -9,6 +9,10 @@
 	export function toggleSelection() {
 		selected = !selected;
 	}
+
+	export function getTitle() {
+		return title;
+	}
 </script>
 
 <div
