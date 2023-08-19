@@ -151,6 +151,11 @@
 				chnageSelected({ action: 'deactivate' });
 				createRoom(e.detail.content);
 				modal.send(false);
+				
+				// This timeout is required in order to give time to 'previews'
+				// to update and trigger the `each` svelte cycle.
+				// It works but I don't like this solution, see master README.md
+				// to read more about it.
 				setTimeout(() => {
 					chnageSelected({ action: 'activate', id: 0 });
 				}, 250);

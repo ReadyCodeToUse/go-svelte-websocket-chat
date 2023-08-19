@@ -65,3 +65,17 @@ When the connection is estabilshed a message with the following fields can be se
 `action` has to be equal to `seng-msg` in order to enable the action of sending a message. A room must be provided in the `room` field to know what room to send the message too. `content` must have a value other than empty string and last the list of users will be ignored by default.
 #### Add a user to a room/chat
 See [create a new room/chat](#create-a-new-roomchat) but instead of `create-room` in the `action` field write `add-user`
+
+## Client
+DISCLAIMER: this is not a complete working client, it was just an exercise for me to learn and improve my frontend skills and knowledge and this is a report on what I've done and what I did correctly or wrong in my opinion. This project can be connected to the backend with the use of web sockets (not done for now becuase I'd like to focus on something else now) and also contains some commented code that shows an alert box before closing the tab in order to control an eventual websocket disconnection.
+
+The informations on how to start the project are available [here](/client/README.md).
+
+### Good
+Imrpoved knowledge about componenets in general, componenet events and slots.
+Using a state machine (not really the best use case) to open a modal box, to learn how to write it with Svelte stores (if something more comples XState can be used)
+Tailwind styling in general.
+Writing some JS code.
+
+### Bad/Wrong
+The main thing I would do differently is how the managing of the previews, an array named `previews` is created and populated when the components are created. That is not a correct behaviour IMHO, a better data struture contianing all the informations about the rooms, messages and previews could be used and that would make easier to manage the creation of the previews. In order to select the newly created preview a `setTimeout` has been added in the `+page.svelte`. Doing so previews has time to trigger the svelte each loop and after the timeout the new preview is selected.
