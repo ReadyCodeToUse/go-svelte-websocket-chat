@@ -151,6 +151,9 @@
 				chnageSelected({ action: 'deactivate' });
 				createRoom(e.detail.content);
 				modal.send(false);
+				setTimeout(() => {
+					chnageSelected({ action: 'activate', id: 0 });
+				}, 250);
 			}}
 		/>
 	</Modal>
